@@ -183,6 +183,85 @@ Map<String, String> map = {'kr': 'Seoul'};
 Set<int> set = {1, 2, 3};
 ```
 
+# 🧺 Dart 컬렉션 3종 세트 정리
+
+Dart에는 대표적인 컬렉션 타입 3가지가 있어요:
+
+| 컬렉션 종류 | 뜻       | 설명                   |
+|-------------|----------|------------------------|
+| List        | 리스트   | 순서 있는 데이터 모음  |
+| Map         | 맵       | 키-값 쌍의 데이터 구조 |
+| Set         | 집합     | 중복 없는 데이터 모음  |
+
+---
+
+## 🟢 1. List (리스트)
+
+> 순서 있는 값들의 묶음. Dart에서 배열도 전부 List라고 불러요.
+
+```dart
+List<int> list = [1, 2, 3];
+print(list[0]); // 1
+```
+
+- 인덱스(0부터 시작)로 요소에 접근
+- 중복 가능: `[1, 1, 2]`도 OK
+- 순서 보장됨
+
+### ✅ 언제 사용?
+- 여러 값을 순서대로 저장하고 싶을 때
+- 위치(index)를 기준으로 데이터를 다룰 때
+
+---
+
+## 🟡 2. Map (맵)
+
+> 키(Key)와 값(Value)의 쌍으로 데이터를 저장
+
+```dart
+Map<String, String> map = {'kr': 'Seoul', 'jp': 'Tokyo'};
+print(map['kr']); // Seoul
+```
+
+- 키를 이용해 값을 꺼냄
+- 키는 중복 불가, 값은 중복 가능
+- 순서 보장 안 됨 (Dart 2.0 이후부터는 일부 보장됨)
+
+### ✅ 언제 사용?
+- 데이터에 이름표(키)를 붙여서 저장하고 싶을 때
+- 예: 국가 코드와 도시, 사용자 아이디와 이름 등
+
+---
+
+## 🔵 3. Set (셋)
+
+> 중복 없는 값들의 모음. 순서가 중요하지 않을 때 사용.
+
+```dart
+Set<int> set = {1, 2, 3, 3};
+print(set); // {1, 2, 3}
+```
+
+- 중복 자동 제거
+- 순서 없음 (정렬되지 않음)
+
+### ✅ 언제 사용?
+- 중복 제거할 때
+- 특정 값이 존재하는지만 확인하고 싶을 때
+
+---
+
+## 🧠 비교 요약
+
+| 컬렉션 | 키 있음 | 순서 있음 | 중복 허용 | 예시                     |
+|--------|---------|-----------|------------|--------------------------|
+| List   | ❌       | ✅        | ✅         | `[1, 2, 3]`              |
+| Map    | ✅       | ❌        | 키 ❌ 값 ✅ | `{'kr': 'Seoul'}`        |
+| Set    | ❌       | ❌        | ❌         | `{1, 2, 3}`              |
+
+---
+
+
 ---
 
 ### 🎯 함수형 프로그래밍
@@ -194,6 +273,194 @@ Set<int> set = {1, 2, 3};
 list.where((x) => x % 2 == 0).map((x) => x * 10).toList();
 ```
 
+# 📘 Dart의 함수형 프로그래밍과 주요 함수 정리
+
+## 🧠 함수형 프로그래밍이란?
+
+> 반복문 없이 `함수`를 조합해서 데이터를 처리하는 스타일.  
+> Dart는 함수도 변수처럼 다룰 수 있는 **일급 객체**를 지원함!
+
+---
+
+## 🥇 Dart는 일급 객체(First-Class Object)를 지원해
+
+- 함수를 변수처럼 저장할 수 있음
+- 함수를 다른 함수에 전달할 수 있음
+- 함수를 리턴할 수도 있음
+
+---
+
+## 📦 주요 함수 정리
+
+### 1. `forEach()`
+
+> 리스트의 모든 요소에 대해 뭔가 행동을 하게 함
+
+```dart
+var list = [1, 2, 3];
+list.forEach((x) {
+  print(x);  // 1, 2, 3 출력됨
+});
+```
+
+---
+
+### 2. `where()`
+
+> 조건에 맞는 요소만 필터링
+
+```dart
+var list = [1, 2, 3, 4, 5];
+var even = list.where((x) => x % 2 == 0);  
+print(even); // (2, 4)
+```
+
+---
+
+### 3. `map()`
+
+> 각 요소를 변형해서 새 Iterable을 반환
+
+```dart
+var list = [1, 2, 3];
+var doubled = list.map((x) => x * 2);
+print(doubled); // (2, 4, 6)
+```
+
+---
+
+### 4. `toList()`
+
+> Iterable을 List로 변환
+
+```dart
+var list = [1, 2, 3];
+var newList = list.map((x) => x * 2).toList();
+print(newList); // [2, 4, 6]
+```
+
+---
+
+### 5. `reduce()`
+
+> 리스트의 요소를 누적해서 하나의 값으로 줄임
+
+```dart
+var list = [1, 2, 3, 4];
+var sum = list.reduce((a, b) => a + b);
+print(sum); // 10
+```
+
+---
+
+### 6. `any()`
+
+> 리스트에 조건을 만족하는 요소가 **하나라도 있으면 true**
+
+```dart
+var list = [1, 3, 5];
+print(list.any((x) => x % 2 == 0)); // false
+```
+
+---
+
+
+## ✨ 한 장 요약
+
+| 함수        | 설명                           | 반환 값       |
+|-------------|--------------------------------|---------------|
+| `forEach`   | 요소 하나씩 꺼내서 동작 수행   | void          |
+| `where`     | 조건에 맞는 요소 필터링        | Iterable      |
+| `map`       | 요소 하나하나 변형             | Iterable      |
+| `toList`    | Iterable → List로 변환         | List          |
+| `reduce`    | 모든 요소를 하나로 합침         | 단일 값       |
+| `any`       | 하나라도 조건 맞는지 체크       | true/false    |
+
+---
+
+
+# 🌟 Dart 컬렉션 if & 컬렉션 for 정리
+
+Dart에서는 List, Set, Map 같은 컬렉션을 만들 때  
+조건문 `if`나 반복문 `for`을 **컬렉션 안에서 직접 사용할 수 있어요!**
+
+---
+
+## 🟩 컬렉션 if
+
+> 조건에 따라 원소를 넣을지 말지를 결정할 수 있어요.
+
+### ✅ 예시
+
+```dart
+bool addMore = true;
+
+var list = [
+  1,
+  2,
+  if (addMore) 3,
+];
+print(list); // [1, 2, 3]
+```
+
+- `addMore`가 false면 3은 안 들어감 → `[1, 2]`
+- true면 → `[1, 2, 3]`
+
+### 🔍 언제 유용해요?
+
+- 조건에 따라 항목을 추가할지 말지 정할 때
+- 예: 로그인된 유저만 메뉴 추가할 때 등
+
+---
+
+## 🟦 컬렉션 for
+
+> 다른 리스트를 반복하면서 값을 새로 만들어 넣을 수 있어요.
+
+### ✅ 예시
+
+```dart
+var base = [1, 2, 3];
+var doubled = [
+  for (var x in base) x * 2
+];
+print(doubled); // [2, 4, 6]
+```
+
+- `base`에 있는 숫자들을 2배 해서 새로운 리스트 만들기!
+
+### 🔍 언제 유용해요?
+
+- 기존 리스트를 바탕으로 변형된 새 리스트 만들 때
+- `map()` 대신 더 직관적으로 사용할 수 있어요
+
+---
+
+## 🔀 if + for 함께 사용하기
+
+둘을 동시에 사용하는 것도 가능해요!
+
+```dart
+var base = [1, 2, 3, 4, 5];
+var result = [
+  for (var x in base)
+    if (x % 2 == 0) x * 10
+];
+print(result); // [20, 40]
+```
+
+- 짝수만 골라서 10배 하기!
+
+---
+
+## 📋 요약
+
+| 문법          | 설명                                      | 예시                          |
+|---------------|-------------------------------------------|-------------------------------|
+| `if`          | 조건 맞으면 값 추가                       | `if (flag) 'hi'`              |
+| `for`         | 반복하며 값 만들어 추가                   | `for (x in list) x * 2`       |
+| `if + for`    | 조건 + 반복 동시에                        | `if (x > 0) for (x in list)`  |
+
 ---
 
 ## ✅ 3장: 프로젝트 구조
@@ -203,6 +470,96 @@ list.where((x) => x % 2 == 0).map((x) => x * 10).toList();
 - `StatefulWidget`: 상태 있음, setState 사용
 
 ---
+
+
+
+
+## 📦 1. pubspec.yaml
+
+> Flutter 앱의 정보와 설정을 적어두는 중요한 설정 파일입니다.
+
+### ✅ 역할
+- 앱 이름, 버전 등 메타데이터
+- 외부 패키지(라이브러리) 의존성 추가
+- 이미지, 폰트 같은 리소스 등록
+
+### 🧾 예시
+```yaml
+name: my_app
+version: 1.0.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.14.0
+
+flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: Nanum
+      fonts:
+        - asset: assets/fonts/Nanum.ttf
+```
+
+### 💡 요약
+- 앱에 필요한 **설정과 리소스를 등록**하는 곳
+- 외부 패키지를 쓸 때 꼭 여기에 추가해야 함
+- 리소스 사용 시 `flutter:` 아래에 경로 등록 필수
+
+---
+
+## 🟨 2. StatelessWidget
+
+> 상태가 없는 정적인 위젯 (한 번 만들어지면 변하지 않음)
+
+### ✅ 특징
+- 내부 상태 없음
+- UI 고정
+- 성능 좋음
+
+### 🧾 예시
+```dart
+class MyText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text("안녕!");
+  }
+}
+```
+
+### 💬 쉽게 말하면
+"나는 고정된 UI야. 나한텐 변화 같은 거 없어."
+
+---
+
+## 🟦 3. StatefulWidget
+
+> 상태를 가지며, UI가 변경될 수 있는 동적인 위젯
+
+### ✅ 특징
+- 내부에 상태(state)를 가짐
+- `setState()`로 UI 갱신
+- 사용자 상호작용에 따라 화면 변경 가능
+
+
+
+## 🧠 Stateless vs Stateful 핵심 비교
+
+| 구분             | StatelessWidget            | StatefulWidget              |
+|------------------|----------------------------|-----------------------------|
+| 상태(state) 관리 | ❌ 없음                    | ✅ 있음                     |
+| 화면 변경 가능성 | ❌ 고정                    | ✅ 변경 가능 (`setState`)   |
+| 사용 예시        | 로고, 고정된 텍스트 등     | 버튼, 폼, 체크박스 등 동적 UI |
+
+---
+
+## ✨ 한 줄 요약
+
+- **`pubspec.yaml`**: 앱의 설정과 자원, 패키지 목록이 들어있는 설정 파일
+- **`StatelessWidget`**: 상태 없는 고정 화면
+- **`StatefulWidget`**: 상태에 따라 바뀌는 동적 화면 (setState 필요)
+
 
 ## ✅ 4장 + 5장: 기본 위젯
 
@@ -303,21 +660,185 @@ Navigator.pushNamed(context, '/home'); // 이름 기반 이동
 
 ---
 
+
+
+# 📱 Flutter 내비게이션 정리
+
+Flutter에서 화면 전환은 `Navigator`를 이용하며, 스택 구조를 기반으로 동작합니다.
+
+---
+
+## 1️⃣ 내비게이션의 동작 원리
+
+> Flutter는 **스택(stack)** 구조로 화면을 관리합니다.
+
+- 새로운 화면을 열면(push) 위에 쌓임
+- 이전 화면으로 돌아가면(pop) 위에서 제거됨
+
+```text
+[Home] → push → [Detail] → pop → [Home]
+```
+
+---
+
+## 2️⃣ `push` / `pop` 사용법
+
+### ✅ `Navigator.push()`
+새로운 화면으로 이동할 때 사용
+
+```dart
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondPage()),
+);
+```
+
+### ✅ `Navigator.pop()`
+현재 화면을 닫고 이전 화면으로 돌아감
+
+```dart
+Navigator.pop(context);
+```
+
+### ✅ 데이터 주고받기
+
+```dart
+// A → B로 이동하면서 결과 기다림
+final result = await Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => InputPage()),
+);
+
+// B → A로 돌아갈 때 데이터 보내기
+Navigator.pop(context, '결과값');
+```
+
+---
+
+## 3️⃣ `routes`를 이용한 화면 전환
+
+> `MaterialApp`의 `routes:` 속성에 화면들을 미리 등록해두고  
+> 문자열로 이름만 불러서 화면 이동하는 방식
+
+### ✅ 1단계: 등록
+
+```dart
+void main() {
+  runApp(MaterialApp(
+    home: HomePage(),
+    routes: {
+      '/second': (context) => SecondPage(),
+      '/third': (context) => ThirdPage(),
+    },
+  ));
+}
+```
+
+### ✅ 2단계: 이동
+
+```dart
+Navigator.pushNamed(context, '/second');
+```
+
+### ✅ 3단계: 뒤로가기
+
+```dart
+Navigator.pop(context);
+```
+
+---
+
+## ⚠️ 강조된 포인트
+
+- `routes:`는 앱 시작 시 전체 구조를 설계하는 부분
+- `home:`은 앱의 첫 화면
+- Named Route 사용 시 문자열 오타 주의
+- 규모가 커질수록 `routes`와 `pushNamed()`가 유지보수에 유리
+
+---
+
+## 📋 요약
+
+| 기능                | 방법                                               |
+|---------------------|----------------------------------------------------|
+| 새 화면 이동        | `Navigator.push(context, MaterialPageRoute(...))` |
+| 화면 닫기           | `Navigator.pop(context)`                          |
+| 이름으로 이동       | `Navigator.pushNamed(context, '/route')`          |
+| 라우트 등록         | `MaterialApp(routes: { '/route': (ctx) => Page() })` |
+
+---
+
+
 ## ✅ 8장: 널 안전한 코드
+
+Flutter 3부터는 **널(null) 때문에 앱이 터지지 않게** 하기 위해  
+**널 안전한 코드**를 **강제**하고 있어요.
+
+---
+
+## 🌪️ null이 뭐야?
+
+> **값이 없음! 비어 있음!**  
+예: 이름을 가져오려 했는데 아무 값도 없을 때
+
+```dart
+String name = getName(); // 값이 없으면 앱이 터져요 💥
+```
+
+---
+
+## ✅ Dart는 이렇게 물어봐요
+
+> "이 변수는 값이 무조건 있어?  
+> 아니면 비어있을 수도 있어?"
+
+그래서 그걸 **`?`** 붙여서 표시해야 해요!
+
+---
+
+## 🍐 널 안전 문법 간단 요약
+
+| 문법 | 설명 | 예시 |
+|------|------|------|
+| `?` | null 허용 타입 | `String? name` |
+| `!` | null 아님을 확신 (주의!) | `name!.length` |
+| `??` | null이면 기본값 사용 | `name ?? "익명"` |
+| `??=` | null일 때만 값 넣기 | `name ??= "초기값"` |
+| `?.` | null이면 아무 것도 안 하고 null 반환 | `user?.name` |
+
+---
+
+## 🍭 예제들
 
 ```dart
 String? name;
-name = null;
+print(name); // null
 
-print(name ?? '기본값');     // null일 경우 대체
-print(name?.length);         // null-safe 접근
-print(name!.length);         // null 아님 보장
+print(name ?? "이름 없음"); // 👉 이름 없음
 ```
 
-- `?` : null 허용
-- `!` : null 아님 확신
-- `??`, `??=`, `?.` : null-safe 연산자
+```dart
+String? name = "지우";
+print(name!.length); // 👉 2 출력 (null이 아니라고 확신할 때만 ! 사용)
+```
+
+```dart
+String? nickname;
+nickname ??= "기본이름";
+print(nickname); // 👉 기본이름
+```
 
 ---
+
+## 🧠 핵심 정리
+
+- null일 수도 있는 변수는 `?`로 표시
+- null이 오면 앱이 터지지 않게 대비 필요
+- `??`, `??=`, `!`, `?.` 같은 연산자를 사용해서 **안전하게 처리**
+
+---
+
+
+
 
 
